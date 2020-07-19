@@ -9,10 +9,8 @@ text_samples:
 
 fitted_classifier:
   type: pickle.PickleDataSet
-  filepath: data/06_models/fitted_classifier.pickle
-  versioned: true
+  filepath: data/06_models/classifier.pickle
 
 fitted_mlb:
   type: pickle.PickleDataSet
-  filepath: data/06_models/fitted_mlb.pickle
-  versioned: true
+  filepath: data/06_models/mlb.pickle
