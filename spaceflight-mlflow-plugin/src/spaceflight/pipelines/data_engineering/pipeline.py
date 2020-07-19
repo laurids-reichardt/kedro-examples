@@ -11,17 +11,20 @@ def create_pipeline(**kwargs):
                 inputs="companies",
                 outputs="preprocessed_companies",
                 name="preprocessing_companies",
+                tags=["training"]
             ),
             node(
                 func=preprocess_shuttles,
                 inputs="shuttles",
                 outputs="preprocessed_shuttles",
                 name="preprocessing_shuttles",
+                tags=["training"]
             ),
             node(
                 func=create_master_table,
                 inputs=["preprocessed_shuttles", "preprocessed_companies", "reviews"],
                 outputs="master_table",
+                tags=["training"]
             ),
         ]
     )
