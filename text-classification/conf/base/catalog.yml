@@ -6,3 +6,13 @@
 text_samples:
   type: pandas.JSONDataSet
   filepath: data/01_raw/data.json
+
+fitted_classifier:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/fitted_classifier.pickle
+  versioned: true
+
+fitted_mlb:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/fitted_mlb.pickle
+  versioned: true

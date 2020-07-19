@@ -1,6 +1,6 @@
 from kedro.pipeline import Pipeline, node
 
-from .nodes import split_data, fit_label_binarizer, transform_labels, train_model, evaluate_model, make_prediction
+from .nodes import split_data, fit_label_binarizer, transform_labels, train_model, evaluate_model, make_prediction, synthetic_node
 
 
 def create_pipeline(**kwargs):
@@ -39,12 +39,19 @@ def create_pipeline(**kwargs):
                 func=evaluate_model,
                 inputs=["classifier", "X_test", "Y_test"],
                 outputs=None,
-                tags=["evaluation"],
+                tags=["training"],
+            ),
+            node(
+                name="Synthetic Node",
+                func=synthetic_node,
+                inputs=["classifier", "mlb"],
+                outputs=["fitted_classifier", "fitted_mlb"],
+                tags=["training"],
             ),
             node(
                 name="Make Prediction",
                 func=make_prediction,
-                inputs=["classifier", "mlb", "features"],
+                inputs=["fitted_classifier", "fitted_mlb", "features"],
                 outputs=None,
                 tags=["inference"],
             ),

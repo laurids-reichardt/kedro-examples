@@ -74,6 +74,9 @@ def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray)
     logger = logging.getLogger(__name__)
     logger.info("Model has an accuracy of %.3f", accu)
 
+def synthetic_node(classifier: Pipeline, mlb: MultiLabelBinarizer) -> List:
+    return [classifier, mlb]
+
 
 def make_prediction(classifier: Pipeline, mlb: MultiLabelBinarizer, features: np.ndarray) -> List:
     # model inference on features
