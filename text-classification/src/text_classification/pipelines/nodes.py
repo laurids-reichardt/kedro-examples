@@ -12,6 +12,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
+import mlflow
 
 
 def split_data(text_samples: pd.DataFrame, parameters: Dict) -> List:
@@ -73,6 +74,10 @@ def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray)
     # log accuracy
     logger = logging.getLogger(__name__)
     logger.info("Model has an accuracy of %.3f", accu)
+
+    # log metric to MLflow
+    mlflow.log_metric("accuracy", accu)
+
 
 def synthetic_node(classifier: Pipeline, mlb: MultiLabelBinarizer) -> List:
     return [classifier, mlb]
