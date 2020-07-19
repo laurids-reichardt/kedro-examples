@@ -43,7 +43,7 @@ def transform_labels(mlb: MultiLabelBinarizer, y_train: np.ndarray, y_test: np.n
     # transform test label data
     Y_test = mlb.transform(y_test)
 
-    return [mlb, Y_train, Y_test]
+    return [Y_train, Y_test]
 
 
 def train_model(X_train: np.ndarray, Y_train: np.ndarray) -> Pipeline:

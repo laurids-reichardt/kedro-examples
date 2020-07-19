@@ -24,7 +24,7 @@ def create_pipeline(**kwargs):
                 name="Transform Labels",
                 func=transform_labels,
                 inputs=["mlb", "y_train", "y_test"],
-                outputs=["mlb", "Y_train", "Y_test"],
+                outputs=["Y_train", "Y_test"],
                 tags=["training"],
             ),
             node(
