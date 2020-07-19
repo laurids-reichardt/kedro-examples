@@ -39,7 +39,7 @@ def create_pipeline(**kwargs):
                 func=evaluate_model,
                 inputs=["classifier", "X_test", "Y_test"],
                 outputs=None,
-                tags=["evaluation"],
+                tags=["training"],
             ),
             node(
                 name="Make Prediction",
