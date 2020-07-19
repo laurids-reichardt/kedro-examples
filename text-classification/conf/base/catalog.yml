@@ -7,10 +7,10 @@ text_samples:
   type: pandas.JSONDataSet
   filepath: data/01_raw/data.json
 
-fitted_classifier:
+classifier:
   type: pickle.PickleDataSet
   filepath: data/06_models/classifier.pickle
 
-fitted_mlb:
+mlb:
   type: pickle.PickleDataSet
   filepath: data/06_models/mlb.pickle

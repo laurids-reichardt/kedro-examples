@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
-from functools import wraps
-from typing import Callable, Dict, List
-import time
+from typing import Dict, List
 import logging
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -45,7 +43,7 @@ def transform_labels(mlb: MultiLabelBinarizer, y_train: np.ndarray, y_test: np.n
     # transform test label data
     Y_test = mlb.transform(y_test)
 
-    return [Y_train, Y_test]
+    return [mlb, Y_train, Y_test]
 
 
 def train_model(X_train: np.ndarray, Y_train: np.ndarray) -> Pipeline:
@@ -79,13 +77,12 @@ def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray)
     mlflow.log_metric("accuracy", accu)
 
 
-def synthetic_node(classifier: Pipeline, mlb: MultiLabelBinarizer) -> List:
-    return [classifier, mlb]
+def make_prediction(classifier: Pipeline, mlb: MultiLabelBinarizer, features: pd.DataFrame) -> List:
+    # convert dataframe of string values to numpy ndarray
+    values = features.to_numpy()
 
-
-def make_prediction(classifier: Pipeline, mlb: MultiLabelBinarizer, features: np.ndarray) -> List:
-    # model inference on features
-    predicted = classifier.predict(features)
+    # model inference on values
+    predicted = classifier.predict(values)
 
     # inverse transform prediction matrix back to string labels
     all_labels = mlb.inverse_transform(predicted)
