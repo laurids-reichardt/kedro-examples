@@ -5,12 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Module",
+            "name": "spaceflight-mlflow-plugin",
             "type": "python",
             "request": "launch",
             "module": "kedro",
             "args": ["run"],
             "cwd": "${workspaceFolder}/spaceflight-mlflow-plugin"
+        },
+        {
+            "name": "text-classification",
+            "type": "python",
+            "request": "launch",
+            "module": "kedro",
+            "args": ["run"],
+            "cwd": "${workspaceFolder}/text-classification"
         }
     ]
 }

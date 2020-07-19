@@ -89,4 +89,4 @@ def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray)
 
     # log accuracy
     logger = logging.getLogger(__name__)
-    logger.info("Model has the following accuracy", accu)
+    logger.info("Model has an accuracy of %.3f", accu)
