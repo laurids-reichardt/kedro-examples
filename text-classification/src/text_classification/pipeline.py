@@ -18,5 +18,5 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     """
 
     return {
-        "__default__": pipeline.create_pipeline(),
+        "__default__": pipeline.create_pipeline().only_nodes_with_tags("training"),
     }

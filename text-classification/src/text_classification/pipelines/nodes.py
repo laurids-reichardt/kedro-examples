@@ -15,15 +15,6 @@ from sklearn.metrics import accuracy_score
 
 
 def split_data(text_samples: pd.DataFrame, parameters: Dict) -> List:
-    """Splits data into training and test sets.
-
-        Args:
-            text_samples: Source data.
-            parameters: Parameters defined in parameters.yml.
-        Returns:
-            A list containing split data.
-
-    """
     # extract features
     X = text_samples["features"].values
 
@@ -73,14 +64,6 @@ def train_model(X_train: np.ndarray, Y_train: np.ndarray) -> Pipeline:
 
 
 def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray):
-    """Calculate the coefficient of determination and log the result.
-
-        Args:
-            classifier: Trained model
-            X_test: Testing data features
-            y_test: Testing data labels
-
-    """
     # make prediction with test data
     predicted = classifier.predict(X_test)
 
@@ -90,3 +73,20 @@ def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray)
     # log accuracy
     logger = logging.getLogger(__name__)
     logger.info("Model has an accuracy of %.3f", accu)
+
+
+def make_prediction(classifier: Pipeline, mlb: MultiLabelBinarizer, features: np.ndarray) -> List:
+    # model inference on features
+    predicted = classifier.predict(features)
+
+    # inverse transform prediction matrix back to string labels
+    all_labels = mlb.inverse_transform(predicted)
+
+    # map input values to predicted label
+    predictions = []
+    for item, labels in zip(values, all_labels):
+        predictions.append({"value": item, "label": labels})
+
+    # return predictions as list of dicts
+    return predictions
+
