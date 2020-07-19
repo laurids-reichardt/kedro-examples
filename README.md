@@ -40,4 +40,7 @@ Run the whole spaceflight tutorial pipeline:
 
 ```
 kedro run
+kedro run --parallel
 ```
+
+kedro run --tag=ds_tag,de_tag
