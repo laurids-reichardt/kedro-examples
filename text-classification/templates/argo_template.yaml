@@ -19,7 +19,7 @@ spec:
     dag:
       tasks:
       #@ for/end task in data.values.tasks:
-      - name: #@ task.clean_name
+      - name: #@ task.name
         template: kedro
         dependencies:
         #@ for/end dep in task.dep:

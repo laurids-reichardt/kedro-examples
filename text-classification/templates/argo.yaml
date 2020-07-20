@@ -1,0 +1,90 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: Text Classification-
+spec:
+  entrypoint: dag
+  templates:
+  - name: kedro
+    inputs:
+      parameters:
+      - name: kedro_node
+    container:
+      image: text-classification-argo-image
+      command:
+      - sh
+      - -c
+      args:
+      - kedro run -n '{{inputs.parameters.kedro_node}}'
+  - name: dag
+    dag:
+      tasks:
+      - name: Transform-X-train-features
+        template: kedro
+        dependencies:
+        - Fit-TfidfVectorizer
+        - Split-data
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Transform-X-train-features
+      - name: Evaluate-model
+        template: kedro
+        dependencies:
+        - Transform-X-test-features
+        - Train-model
+        - Transform-labels
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Evaluate-model
+      - name: Fit-MultiLabelBinarizer
+        template: kedro
+        dependencies:
+        - Split-data
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Fit-MultiLabelBinarizer
+      - name: Transform-X-test-features
+        template: kedro
+        dependencies:
+        - Fit-TfidfVectorizer
+        - Split-data
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Transform-X-test-features
+      - name: Train-model
+        template: kedro
+        dependencies:
+        - Transform-labels
+        - Transform-X-train-features
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Train-model
+      - name: Fit-TfidfVectorizer
+        template: kedro
+        dependencies:
+        - Split-data
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Fit-TfidfVectorizer
+      - name: Split-data
+        template: kedro
+        dependencies: []
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Split-data
+      - name: Transform-labels
+        template: kedro
+        dependencies:
+        - Fit-MultiLabelBinarizer
+        - Split-data
+        arguments:
+          parameters:
+          - name: kedro_node
+            value: Transform-labels
