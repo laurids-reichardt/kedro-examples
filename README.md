@@ -178,3 +178,5 @@ kedro argo --ytt text-classification-argo-image
 ```
 
 Further investigation is needed.
+
+![All roads lead to Argo](https://raw.githubusercontent.com/laurids-reichardt/kedro-examples/master/all-roads-lead-to-argo.jpg)
