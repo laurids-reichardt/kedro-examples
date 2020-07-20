@@ -1,4 +1,5 @@
 kedro[pandas]==0.16.3
 kedro-viz==3.4.0
 sqlalchemy<=1.3.13
+kedro-argo==0.0.8
 git+https://github.com/Galileo-Galilei/kedro-mlflow.git@hotfix-pipeline-ml
