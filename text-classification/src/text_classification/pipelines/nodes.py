@@ -5,8 +5,9 @@ import logging
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
+# from sklearn.feature_extraction.text import CountVectorizer
+# from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
@@ -46,25 +47,36 @@ def transform_labels(mlb: MultiLabelBinarizer, y_train: np.ndarray, y_test: np.n
     return [Y_train, Y_test]
 
 
-def train_model(X_train: np.ndarray, Y_train: np.ndarray) -> Pipeline:
-    # scikit-learn classifier pipeline
-    classifier = Pipeline(
-        [
-            ("vectorizer", CountVectorizer()),
-            ("tfidf", TfidfTransformer()),
-            ("clf", OneVsRestClassifier(LinearSVC())),
-        ]
-    )
+def tfid_vectorize_fit(X_train: np.ndarray) -> TfidfVectorizer:
+    # equivalent to CountVectorizer followed by TfidfTransformer
+    vectorizer = TfidfVectorizer()
+
+    # fit on train feature data
+    vectorizer.fit(X_train)
+
+    return vectorizer
+
+
+def tfid_vectorize_transform(vectorizer: TfidfVectorizer, features: np.ndarray) -> np.ndarray:
+    # transform feature data
+    features_transformed = vectorizer.transform(features)
+
+    return features_transformed
+
+
+def train_model(X_train_transformed: np.ndarray, Y_train: np.ndarray) -> OneVsRestClassifier:
+    # scikit-learn classifier
+    classifier = OneVsRestClassifier(LinearSVC())
 
     # fit the classifier on the train data
-    classifier.fit(X_train, Y_train)
+    classifier.fit(X_train_transformed, Y_train)
 
     return classifier
+    
 
-
-def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray):
+def evaluate_model(classifier: OneVsRestClassifier, X_test_transformed: np.ndarray, Y_test: np.ndarray):
     # make prediction with test data
-    predicted = classifier.predict(X_test)
+    predicted = classifier.predict(X_test_transformed)
 
     # accuracy score of the trained classifier
     accu = accuracy_score(Y_test, predicted)
@@ -77,7 +89,7 @@ def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray)
     mlflow.log_metric("accuracy", accu)
 
 
-def make_prediction(classifier: Pipeline, mlb: MultiLabelBinarizer, features: pd.DataFrame) -> List:
+def make_prediction(classifier: OneVsRestClassifier, mlb: MultiLabelBinarizer, features: pd.DataFrame) -> List:
     # convert dataframe of string values to numpy ndarray
     values = features.to_numpy().flatten()
 
