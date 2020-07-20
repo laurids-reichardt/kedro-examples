@@ -109,6 +109,8 @@ Checkout the text-classification pipeline:
 kedro viz
 ```
 
+![Pipeline visualization](https://raw.githubusercontent.com/laurids-reichardt/kedro-examples/master/text-classification/docs/kedro-pipeline.svg)
+
 ### Pipeline runs
 
 Run the whole pipeline:
