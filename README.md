@@ -13,7 +13,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Check kedro installation:
+Check Kedro installation:
 
 ```
 ❯ kedro info
@@ -37,7 +37,7 @@ kedro_viz: 3.4.0 (hooks:global,line_magic)
 
 ## Empty Kedro template project
 
-Kedro is able to create an empty template project with the following command:
+Kedro creates an empty template project with the following command:
 
 ```
 kedro new
@@ -47,7 +47,7 @@ You can take a look at the result inside the empty-kedro-template directory.
 
 ## Spaceflight tutorial
 
-The spaceflight directory contains result of the official Kedro tutorial: https://kedro.readthedocs.io/en/stable/03_tutorial/02_tutorial_template.html
+The spaceflight directory contains the result of the official Kedro tutorial: https://kedro.readthedocs.io/en/stable/03_tutorial/02_tutorial_template.html
 
 Change to the spaceflight directory and install project dependencies:
 
