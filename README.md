@@ -1,5 +1,7 @@
 # Kedro + MLFlow examples
 
+This repo contains multiple example projects on how to implement machine learning pipelines with [Kedro](https://github.com/quantumblacklabs/kedro) and [MLFlow](https://mlflow.org/).
+
 ## Prerequisites
 
 ```python == 3.7```
