@@ -34,4 +34,3 @@ master_table:
 regressor:
   type: pickle.PickleDataSet
   filepath: data/06_models/regressor.pickle
-  versioned: true
