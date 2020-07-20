@@ -1,0 +1,92 @@
+{
+    "features": {
+        "0": "new york is a hell of a town",
+        "1": "new york was originally dutch",
+        "2": "the big apple is great",
+        "3": "new york is also called the big apple",
+        "4": "nyc is nice",
+        "5": "people abbreviate new york city as nyc",
+        "6": "the capital of great britain is london",
+        "7": "london is in the uk",
+        "8": "london is in england",
+        "9": "london is in great britain",
+        "10": "it rains a lot in london",
+        "11": "london hosts the british museum",
+        "12": "new york is great and so is london",
+        "13": "i like london better than new york",
+        "14": "nice day in nyc",
+        "15": "welcome to london",
+        "16": "london is rainy",
+        "17": "it is raining in britian",
+        "18": "it is raining in britian and the big apple",
+        "19": "it is raining in britian and nyc",
+        "20": "hello welcome to new york. enjoy it here and london too"
+    },
+    "labels": {
+        "0": [
+            "new york"
+        ],
+        "1": [
+            "new york"
+        ],
+        "2": [
+            "new york"
+        ],
+        "3": [
+            "new york"
+        ],
+        "4": [
+            "new york"
+        ],
+        "5": [
+            "new york"
+        ],
+        "6": [
+            "london"
+        ],
+        "7": [
+            "london"
+        ],
+        "8": [
+            "london"
+        ],
+        "9": [
+            "london"
+        ],
+        "10": [
+            "london"
+        ],
+        "11": [
+            "london"
+        ],
+        "12": [
+            "new york",
+            "England"
+        ],
+        "13": [
+            "new york",
+            "london"
+        ],
+        "14": [
+            "new york"
+        ],
+        "15": [
+            "new york"
+        ],
+        "16": [
+            "new york"
+        ],
+        "17": [
+            "new york"
+        ],
+        "18": [
+            "new york"
+        ],
+        "19": [
+            "new york"
+        ],
+        "20": [
+            "new york"
+        ]
+    }
+}
