@@ -25,6 +25,7 @@ def split_data(text_samples: pd.DataFrame, parameters: Dict) -> List:
 
     return [X_train, X_test, y_train, y_test]
 
+
 def fit_label_binarizer(y_train: np.ndarray) -> MultiLabelBinarizer:
     # multi label binarizer to transform data labels
     mlb = MultiLabelBinarizer()
@@ -34,7 +35,10 @@ def fit_label_binarizer(y_train: np.ndarray) -> MultiLabelBinarizer:
 
     return mlb
 
-def transform_labels(mlb: MultiLabelBinarizer, y_train: np.ndarray, y_test: np.ndarray) -> List:
+
+def transform_labels(
+    mlb: MultiLabelBinarizer, y_train: np.ndarray, y_test: np.ndarray
+) -> List:
     # transform train label data
     Y_train = mlb.transform(y_train)
 
@@ -54,14 +58,18 @@ def tfid_vectorize_fit(X_train: np.ndarray) -> TfidfVectorizer:
     return vectorizer
 
 
-def tfid_vectorize_transform(vectorizer: TfidfVectorizer, features: np.ndarray) -> np.ndarray:
+def tfid_vectorize_transform(
+    vectorizer: TfidfVectorizer, features: np.ndarray
+) -> np.ndarray:
     # transform feature data
     features_transformed = vectorizer.transform(features)
 
     return features_transformed
 
 
-def train_model(X_train_transformed: np.ndarray, Y_train: np.ndarray) -> OneVsRestClassifier:
+def train_model(
+    X_train_transformed: np.ndarray, Y_train: np.ndarray
+) -> OneVsRestClassifier:
     # scikit-learn classifier
     classifier = OneVsRestClassifier(LinearSVC())
 
@@ -71,7 +79,9 @@ def train_model(X_train_transformed: np.ndarray, Y_train: np.ndarray) -> OneVsRe
     return classifier
 
 
-def evaluate_model(classifier: OneVsRestClassifier, X_test_transformed: np.ndarray, Y_test: np.ndarray):
+def evaluate_model(
+    classifier: OneVsRestClassifier, X_test_transformed: np.ndarray, Y_test: np.ndarray
+):
     # make prediction with test data
     predicted = classifier.predict(X_test_transformed)
 
@@ -91,7 +101,12 @@ def transform_df_to_ndarray(features: pd.DataFrame) -> np.ndarray:
     return features.to_numpy().flatten()
 
 
-def make_prediction(classifier: OneVsRestClassifier, mlb: MultiLabelBinarizer, features: pd.DataFrame, features_transformed: np.ndarray) -> List:
+def make_prediction(
+    classifier: OneVsRestClassifier,
+    mlb: MultiLabelBinarizer,
+    features: pd.DataFrame,
+    features_transformed: np.ndarray,
+) -> List:
     # convert dataframe of input string values to numpy ndarray
     values = features.to_numpy().flatten()
 
@@ -108,4 +123,3 @@ def make_prediction(classifier: OneVsRestClassifier, mlb: MultiLabelBinarizer, f
 
     # return predictions as list of dicts
     return predictions
-

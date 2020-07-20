@@ -1,6 +1,16 @@
 from kedro.pipeline import Pipeline, node
 
-from .nodes import split_data, fit_label_binarizer, transform_labels, train_model, evaluate_model, make_prediction, tfid_vectorize_fit, tfid_vectorize_transform, transform_df_to_ndarray
+from .nodes import (
+    split_data,
+    fit_label_binarizer,
+    transform_labels,
+    train_model,
+    evaluate_model,
+    make_prediction,
+    tfid_vectorize_fit,
+    tfid_vectorize_transform,
+    transform_df_to_ndarray,
+)
 
 
 def create_pipeline(**kwargs):

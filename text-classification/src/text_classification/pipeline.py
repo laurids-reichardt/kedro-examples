@@ -7,6 +7,7 @@ from kedro_mlflow.pipeline import pipeline_ml
 
 from .pipelines import pipeline
 
+
 def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     """Create the project's pipeline.
 
@@ -18,7 +19,9 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
 
     """
 
-    preprocessing_pipeline = pipeline.create_pipeline().only_nodes_with_tags("preprocessing")
+    preprocessing_pipeline = pipeline.create_pipeline().only_nodes_with_tags(
+        "preprocessing"
+    )
     training_pipeline = pipeline.create_pipeline().only_nodes_with_tags("training")
     evaluation_pipeline = pipeline.create_pipeline().only_nodes_with_tags("evaluation")
     inference_pipeline = pipeline.create_pipeline().only_nodes_with_tags("inference")
@@ -26,7 +29,7 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
     kedro_mlflow_pipeline = pipeline_ml(
         training=preprocessing_pipeline + training_pipeline + evaluation_pipeline,
         inference=inference_pipeline,
-        input_name="features"
+        input_name="features",
     )
 
     return {
