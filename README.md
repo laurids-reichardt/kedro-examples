@@ -164,3 +164,15 @@ Deploy the model:
 ```
 model_id=612769aac0d149ee84a0ffb08d9d54e6; mlflow models serve -m ./mlruns/1/${model_id}/artifacts/text_classification --no-conda
 ```
+
+## Kedro Argo
+
+A community effort to convert Kedro to Argo pipelines exist: https://github.com/nraw/kedro-argo
+
+The ./text-classifiaction/templates directory contains the output of the following command:
+
+```
+kedro argo --ytt text-classification-argo-image
+```
+
+Further investigation is needed.

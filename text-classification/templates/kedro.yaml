@@ -1,0 +1,50 @@
+#@data/values
+---
+image: text-classification-argo-image
+namespace: ''
+parameters:
+- caption: test_size
+  default: 0.2
+  name: test_size
+- caption: random_state
+  default: 42
+  name: random_state
+project_name: Text Classification
+tasks:
+- dep:
+  - Split-data
+  name: Fit-MultiLabelBinarizer
+  node: Fit MultiLabelBinarizer
+- dep:
+  - Split-data
+  - Fit-MultiLabelBinarizer
+  name: Transform-labels
+  node: Transform labels
+- dep:
+  - Fit-TfidfVectorizer
+  - Split-data
+  name: Transform-X-train-features
+  node: Transform X_train features
+- dep:
+  - Transform-labels
+  - Transform-X-train-features
+  name: Train-model
+  node: Train model
+- dep:
+  - Transform-labels
+  - Transform-X-test-features
+  - Train-model
+  name: Evaluate-model
+  node: Evaluate model
+- dep:
+  - Split-data
+  name: Fit-TfidfVectorizer
+  node: Fit TfidfVectorizer
+- dep: []
+  name: Split-data
+  node: Split data
+- dep:
+  - Fit-TfidfVectorizer
+  - Split-data
+  name: Transform-X-test-features
+  node: Transform X_test features
