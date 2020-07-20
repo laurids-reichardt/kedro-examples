@@ -1,17 +1,14 @@
 import pandas as pd
 import numpy as np
-from typing import Dict, List
 import logging
+import mlflow
+from typing import Dict, List
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
-from sklearn.pipeline import Pipeline
-# from sklearn.feature_extraction.text import CountVectorizer
-# from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score
-import mlflow
 
 
 def split_data(text_samples: pd.DataFrame, parameters: Dict) -> List:
@@ -72,7 +69,7 @@ def train_model(X_train_transformed: np.ndarray, Y_train: np.ndarray) -> OneVsRe
     classifier.fit(X_train_transformed, Y_train)
 
     return classifier
-    
+
 
 def evaluate_model(classifier: OneVsRestClassifier, X_test_transformed: np.ndarray, Y_test: np.ndarray):
     # make prediction with test data
@@ -89,12 +86,17 @@ def evaluate_model(classifier: OneVsRestClassifier, X_test_transformed: np.ndarr
     mlflow.log_metric("accuracy", accu)
 
 
-def make_prediction(classifier: OneVsRestClassifier, mlb: MultiLabelBinarizer, features: pd.DataFrame) -> List:
+def transform_df_to_ndarray(features: pd.DataFrame) -> np.ndarray:
     # convert dataframe of string values to numpy ndarray
+    return features.to_numpy().flatten()
+
+
+def make_prediction(classifier: OneVsRestClassifier, mlb: MultiLabelBinarizer, features: pd.DataFrame, features_transformed: np.ndarray) -> List:
+    # convert dataframe of input string values to numpy ndarray
     values = features.to_numpy().flatten()
 
-    # model inference on values
-    predicted = classifier.predict(values)
+    # model inference on features
+    predicted = classifier.predict(features_transformed)
 
     # inverse transform prediction matrix back to string labels
     all_labels = mlb.inverse_transform(predicted)

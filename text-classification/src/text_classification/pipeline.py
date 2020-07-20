@@ -17,13 +17,22 @@ def create_pipelines(**kwargs) -> Dict[str, Pipeline]:
         A mapping from a pipeline name to a ``Pipeline`` object.
 
     """
+
+    preprocessing_pipeline = pipeline.create_pipeline().only_nodes_with_tags("preprocessing")
+    training_pipeline = pipeline.create_pipeline().only_nodes_with_tags("training")
+    evaluation_pipeline = pipeline.create_pipeline().only_nodes_with_tags("evaluation")
+    inference_pipeline = pipeline.create_pipeline().only_nodes_with_tags("inference")
+
     kedro_mlflow_pipeline = pipeline_ml(
-        training=pipeline.create_pipeline().only_nodes_with_tags("training"),
-        inference=pipeline.create_pipeline().only_nodes_with_tags("inference"),
+        training=preprocessing_pipeline + training_pipeline + evaluation_pipeline,
+        inference=inference_pipeline,
         input_name="features"
     )
 
     return {
+        "preprocessing": preprocessing_pipeline,
+        "training": training_pipeline,
+        "evaluation": evaluation_pipeline,
         "kedro_mlflow": kedro_mlflow_pipeline,
-        "__default__": pipeline.create_pipeline().only_nodes_with_tags("training"),
+        "__default__": preprocessing_pipeline + training_pipeline + evaluation_pipeline,
     }

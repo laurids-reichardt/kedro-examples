@@ -14,3 +14,7 @@ classifier:
 mlb:
   type: pickle.PickleDataSet
   filepath: data/06_models/mlb.pickle
+
+vectorizer:
+  type: pickle.PickleDataSet
+  filepath: data/06_models/vectorizer.pickle
