@@ -45,7 +45,7 @@ def create_pipeline(**kwargs):
                 name="Make Prediction",
                 func=make_prediction,
                 inputs=["classifier", "mlb", "features"],
-                outputs=["predictions"],
+                outputs="predictions",
                 tags=["inference"],
             ),
         ]

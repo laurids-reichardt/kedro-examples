@@ -79,7 +79,7 @@ def evaluate_model(classifier: Pipeline, X_test: np.ndarray, Y_test: np.ndarray)
 
 def make_prediction(classifier: Pipeline, mlb: MultiLabelBinarizer, features: pd.DataFrame) -> List:
     # convert dataframe of string values to numpy ndarray
-    values = features.to_numpy()
+    values = features.to_numpy().flatten()
 
     # model inference on values
     predicted = classifier.predict(values)
