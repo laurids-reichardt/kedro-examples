@@ -65,6 +65,9 @@ Checkout the spaceflight tutorial pipeline:
 kedro viz
 ```
 
+![Pipeline visualization](https://raw.githubusercontent.com/laurids-reichardt/kedro-examples/master/spaceflight/docs/kedro-pipeline.svg)
+
+
 ### Pipeline runs
 
 Run the whole spaceflight tutorial pipeline:
